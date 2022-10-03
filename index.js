@@ -12,11 +12,25 @@ dotenv.config();
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
-    console.log('connected to mongoDB');
+    console.log('Connected to mongoDB');
   } catch (error) {
     throw error; // Crash the app if we can't connect to the database
   }
 };
+
+// mongo conencted if its disconencted then it will reconnect
+mongoose.connection.on('disconnected', () => {
+  console.log('Disconnected from mongoDB');
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('mongoDB connected');
+})
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+  });
+
 
 app.listen(PORT, () => {
   // call connection to database
