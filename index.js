@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import authRoute from './routes/auth.js'; // remember to add .js
+
 const app = express();
 const PORT = 3002;
 dotenv.config();
@@ -31,6 +33,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
   });
 
+
+// Create middleware for routes
+app.use('/auth', authRoute);
 
 app.listen(PORT, () => {
   // call connection to database
