@@ -1,6 +1,7 @@
 import express from "express";
 import Hotel from '../models/Hotel.js';
 const router = express.Router();
+import createError from '../utils/error.js';
 
 
 
@@ -68,10 +69,7 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res, next) => {
 
   const failed = true;
-  const err = new Error();
-  err.status = 400 ;
-  err.message = "Something went wrong";
-  if (failed) return next(err);
+  if (failed) return next(createError(401, "You are not authorized"));
 
   try {
     const hotels =  await Hotel.findById('ASFAFAFA');
