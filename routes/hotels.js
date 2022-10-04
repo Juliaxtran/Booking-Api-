@@ -65,13 +65,21 @@ router.get("/:id", async (req, res) => {
 
 // Get All
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
+
+  const failed = true;
+  const err = new Error();
+  err.status = 400 ;
+  err.message = "Something went wrong";
+  if (failed) return next(err);
+
   try {
-    const hotels =  await Hotel.find();
+    const hotels =  await Hotel.findById('ASFAFAFA');
     res.status(200).json(hotels);
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    // res.status(500).json({ message: error.message });
+    next(err);
   }
 
 });
