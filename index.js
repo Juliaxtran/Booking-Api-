@@ -5,8 +5,11 @@ import authRoute from './routes/auth.js'; // remember to add .js
 import hotelsRoute from './routes/hotels.js'; // remember to add .js
 import roomsRoute from './routes/rooms.js'; // remember to add .js
 import usersRoute from './routes/users.js'; // remember to add .js
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 const app = express();
+const cors = require('cors');
 const PORT = 3002;
 dotenv.config();
 
@@ -38,8 +41,7 @@ app.get('/', (req, res) => {
 
 
 // Create middleware for routes
-app.use(express.json);
-
+app.use(express.json());
 app.use('/api/auth', authRoute);
 app.use('/api/hotels', hotelsRoute);
 app.use('/api/rooms', roomsRoute);
