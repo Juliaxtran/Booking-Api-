@@ -22,7 +22,7 @@ export const register = async (req, res, next) => {
     })
 
     await newUser.save();
-    res.status(200).send("New user created");
+    res.status(200).send("New user  successfully created");
 
   } catch (error) {
     next(error)
@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json({ details: { ...otherDetails }, isAdmin });
+      .json( { details: { ...otherDetails }, isAdmin , message: "Login successful" });
   } catch (err) {
     next(err);
   }
