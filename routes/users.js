@@ -18,9 +18,9 @@ router.get("/", (req, res) => {
 // })
 
 
-// router.get("/checkAdmin/:id", verifyAdmin, (req, res, next) => {
-//   res.status(200).send("Hello Admin, you are logged in, you are authroized to delete all accounts");
-// })
+router.get("/checkAdmin/:id", verifyAdmin, (req, res, next) => {
+  res.status(200).send("Hello Admin, you are logged in, you are authroized to delete all accounts");
+})
 
 
 
