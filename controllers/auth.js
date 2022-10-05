@@ -34,7 +34,7 @@ export const login = async( req, res, next) => {
  try {
 
   const user = await User.findOne({ username: req.body.username });
-  if(!user) return res.next(createError(404, "User not found"));
+  if(!user) return next(createError(404, "User not found"));
 
   // Compare hash password
 
