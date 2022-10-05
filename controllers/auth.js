@@ -39,8 +39,11 @@ export const login = async( req, res, next) => {
   // Compare hash password
 
   const isPasswordValid = await bcrypt.compareSync(req.body.password, user.password);
-  if(!isPasswordValid) return res.next(createError(400, "Password is not correct"));
-  res.status(200).json(user)
+  if(!isPasswordValid) return next(createError(400, "Password is not correct"));
+
+  const { password, isAdmin, ...others } = user._doc;
+  res.status(200).json({...others});
+
  } catch (error) {
   next(error)
  }
