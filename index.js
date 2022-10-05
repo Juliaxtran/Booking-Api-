@@ -5,6 +5,7 @@ import authRoute from './routes/auth.js'; // remember to add .js
 import hotelsRoute from './routes/hotels.js'; // remember to add .js
 import roomsRoute from './routes/rooms.js'; // remember to add .js
 import usersRoute from './routes/users.js'; // remember to add .js
+import cookieParser from 'cookie-parser';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
@@ -42,6 +43,7 @@ app.get('/', (req, res) => {
 
 // Create middleware for routes
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 app.use('/api/auth', authRoute);
 app.use('/api/hotels', hotelsRoute);
