@@ -1,10 +1,13 @@
 
 import User from "../models/User.js"
 import bcrypt from "bcryptjs"
-
+import createError from '../utils/error.js';
 
 export const register = async( req, res, next) => {
  try {
+
+  // hash password
+
 
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(req.body.password, salt);
@@ -19,6 +22,25 @@ export const register = async( req, res, next) => {
   await newUser.save();
   res.status(200).send("New user created");
 
+ } catch (error) {
+  next(error)
+ }
+
+}
+
+
+
+export const login = async( req, res, next) => {
+ try {
+
+  const user = await User.findOne({ username: req.body.username });
+  if(!user) return res.next(createError(404, "User not found"));
+
+  // Compare hash password
+
+  const isPasswordValid = await bcrypt.compareSync(req.body.password, user.password);
+  if(!isPasswordValid) return res.next(createError(400, "Password is not correct"));
+  res.status(200).json(user)
  } catch (error) {
   next(error)
  }
