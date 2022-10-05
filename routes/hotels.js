@@ -3,13 +3,14 @@ import Hotel from '../models/Hotel.js';
 const router = express.Router();
 import createError from '../utils/error.js';
 import {createHotel, deleteHotel, getHotel, updateHotel, getAllHotels} from '../controllers/hotel.js';
+import { verifyAdmin } from "../utils/verifyToken.js";
 
 
 
 
 
 // Create
-router.post("/", createHotel);
+router.post("/", verifyAdmin,  createHotel);
 
 // Update
 // Get model and chain what you want to do with it
@@ -18,11 +19,11 @@ router.post("/", createHotel);
 // $set operator replaces the value of a field with the specified value.
 //The $set operator expression has the following form: { $set: { <field1>: <value1>, ... } }
 
-router.put("/:id", updateHotel);
+router.put("/:id", verifyAdmin,  updateHotel);
 
 // Delete
 
-router.delete("/:id", deleteHotel);
+router.delete("/:id", verifyAdmin, deleteHotel);
 
 // Get
 
