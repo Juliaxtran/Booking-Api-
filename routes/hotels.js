@@ -2,7 +2,7 @@ import express from "express";
 import Hotel from '../models/Hotel.js';
 const router = express.Router();
 import createError from '../utils/error.js';
-import {createHotel, deleteHotel, getHotel, updateHotel, getAllHotels} from '../controllers/hotel.js';
+import {createHotel, deleteHotel, getHotel, updateHotel, getAllHotels, countByCity} from '../controllers/hotel.js';
 import { verifyAdmin } from "../utils/verifyToken.js";
 
 
@@ -13,11 +13,6 @@ import { verifyAdmin } from "../utils/verifyToken.js";
 router.post("/", verifyAdmin,  createHotel);
 
 // Update
-// Get model and chain what you want to do with it
-// get the id for the request parameter
-// set method allows you to set the fields you want to update
-// $set operator replaces the value of a field with the specified value.
-//The $set operator expression has the following form: { $set: { <field1>: <value1>, ... } }
 
 router.put("/:id", verifyAdmin,  updateHotel);
 
@@ -27,10 +22,13 @@ router.delete("/:id", verifyAdmin, deleteHotel);
 
 // Get
 
-router.get("/:id", getHotel);
+router.get("/find/:id", getHotel);
 
 // Get All
 
 router.get("/", getAllHotels);
+router.get('/countByCity', countByCity);
+router.get('/countByType', getAllHotels);
+
 
 export default router
