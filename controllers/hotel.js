@@ -58,10 +58,11 @@ export const getHotel = async (req, res, next) => {
 }
 
 // get all hotels
+// example query http://localhost:3002/api/hotels?featured=true&limit=3
 
 export const getAllHotels = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find();
+    const hotels = await Hotel.find(req.query).limit(req.query.limit);
     res.status(200).json(hotels);
 
   } catch (err) {
